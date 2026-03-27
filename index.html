@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velora Candles | Premium 3D Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #faf8f5;
+            --text-main: #2c2c2c;
+            --text-light: #5a5a5a;
+            --accent-color: #c0a080;
+            --accent-hover: #a88868;
+            --white: #ffffff;
+            --wa-green: #25D366;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 25px 50px rgba(0,0,0,0.15);
+            --shadow-3d: 20px 30px 40px rgba(0,0,0,0.12), -10px -10px 20px rgba(255,255,255,0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Nav */
+        nav {
+            padding: 1.5rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand-logo {
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 102; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2.2rem;
+            cursor: pointer;
+            z-index: 103;
+            color: var(--text-main);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* Hero Section - 3D Layout */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(192,160,128,0.15) 0%, rgba(250,248,245,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 550px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            color: var(--text-main);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: var(--white);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(192, 160, 128, 0.3);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(192, 160, 128, 0.4);
+        }
+
+        .hero-image-stack {
+            position: relative;
+            width: 500px;
+            height: 600px;
+            z-index: 1;
+            perspective: 1000px;
+        }
+
+        .hero-image-stack img {
+            position: absolute;
+            border-radius: 20px;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Auto-floating Animations for Mobile (and visual flair on Desktop) */
+        @keyframes floatFront {
+            0%, 100% { transform: translateZ(50px) rotate(-4deg) translateY(0); }
+            50% { transform: translateZ(50px) rotate(-4deg) translateY(-12px); }
+        }
+        @keyframes floatBack {
+            0%, 100% { transform: translateZ(-50px) rotate(6deg) translateY(0); }
+            50% { transform: translateZ(-50px) rotate(6deg) translateY(12px); }
+        }
+
+        .img-back {
+            width: 350px;
+            height: 450px;
+            object-fit: cover;
+            top: 20px;
+            right: 20px;
+            transform: translateZ(-50px) rotate(6deg);
+            opacity: 0.9;
+            filter: brightness(0.9);
+            animation: floatBack 8s ease-in-out infinite;
+        }
+
+        .img-front {
+            width: 400px;
+            height: 500px;
+            object-fit: cover;
+            bottom: 20px;
+            left: -20px;
+            transform: translateZ(50px) rotate(-4deg);
+            z-index: 2;
+            animation: floatFront 6s ease-in-out infinite;
+        }
+
+        /* Desktop Hover: pause the automatic float and dramatically spread */
+        @media (hover: hover) {
+            .hero-image-stack:hover .img-back {
+                animation-play-state: paused;
+                transform: translateZ(-100px) rotate(10deg) translateX(30px);
+                opacity: 0.7;
+            }
+            .hero-image-stack:hover .img-front {
+                animation-play-state: paused;
+                transform: translateZ(100px) rotate(-8deg) translateX(-30px);
+            }
+        }
+
+        /* Trust Section */
+        .trust-section {
+            padding: 4rem 5rem;
+            background-color: var(--white);
+            position: relative;
+            z-index: 5;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            border-radius: 16px;
+            background: var(--bg-color);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.7), 
+                        inset -3px -3px 7px rgba(0,0,0,0.03),
+                        0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .trust-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .trust-item ion-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            filter: drop-shadow(2px 4px 6px rgba(192, 160, 128, 0.4));
+        }
+
+        .trust-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .trust-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 8rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 5rem;
+            font-size: 1.1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 4rem 3rem;
+        }
+
+        /* 3D Product Card */
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding-bottom: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.04);
+            transform-style: preserve-3d;
+        }
+
+        @media (hover: hover) {
+            .product-card:hover {
+                transform: translateY(-15px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+                box-shadow: var(--shadow-3d);
+            }
+            .product-card:hover .product-image {
+                transform: translateZ(30px) scale(1.05);
+                box-shadow: var(--shadow-lg);
+            }
+        }
+
+        /* Mobile touch feedback */
+        @media (hover: none) {
+            .product-card:active {
+                transform: translateY(-8px) scale(1.02) rotateX(1deg) rotateY(-1deg);
+                box-shadow: var(--shadow-lg);
+            }
+            .about-image:active {
+                transform: translate(5px, -5px);
+                box-shadow: -15px 15px 0px rgba(192, 160, 128, 0.25);
+            }
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 380px;
+            padding: 1.5rem;
+            perspective: 800px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-info {
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+            transform: translateZ(40px);
+        }
+
+        .product-name {
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .btn-buy {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 2px solid transparent;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .btn-buy:hover {
+            background: var(--text-main);
+            color: var(--white);
+            border-color: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-buy ion-icon {
+            font-size: 1.3rem;
+            color: var(--wa-green);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 5rem;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+        }
+
+        .about-image {
+            width: 400px;
+            height: 500px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: -20px 20px 0px rgba(192, 160, 128, 0.2), var(--shadow-lg);
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        @media (hover: hover) {
+            .about-image:hover {
+                transform: translate(10px, -10px) rotateY(5deg) rotateX(5deg);
+                box-shadow: -30px 30px 0px rgba(192, 160, 128, 0.25), var(--shadow-lg);
+            }
+        }
+
+        .about-container {
+            max-width: 500px;
+        }
+
+        .about-text {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-top: 2rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--white);
+            padding: 5rem 5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .social-links a {
+            font-size: 1.8rem;
+            background: rgba(255,255,255,0.05);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(192, 160, 128, 0.3);
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+        }
+
+        /* Sticky WhatsApp */
+        .sticky-wa {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background-color: var(--wa-green);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sticky-wa:hover {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        /* Nav Overlay for Mobile */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        
+        @media (max-width: 1024px) {
+            .hero { padding: 4rem 3rem 0; flex-direction: column; text-align: center; gap: 4rem; }
+            .hero-content { max-width: 100%; }
+            .hero::before { display: none; }
+            .hero-image-stack { width: 100%; display: flex; justify-content: center; }
+            
+            /* Animations redefined slightly for breakpoint layouts */
+            @keyframes mobileFloatBack {
+                0%, 100% { transform: translateZ(-30px) rotate(4deg) translateY(0); }
+                50% { transform: translateZ(-30px) rotate(4deg) translateY(12px); }
+            }
+            @keyframes mobileFloatFront {
+                0%, 100% { transform: translateZ(30px) rotate(-3deg) translateY(0); }
+                50% { transform: translateZ(30px) rotate(-3deg) translateY(-12px); }
+            }
+            
+            .img-back { right: 20%; top: 0; animation: mobileFloatBack 8s ease-in-out infinite; }
+            .img-front { left: 20%; bottom: 0; animation: mobileFloatFront 6s ease-in-out infinite; }
+            
+            .trust-section { padding: 4rem 3rem; }
+            .trust-container { gap: 2rem; }
+            
+            .products-section { padding: 6rem 3rem; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 3rem 2rem; }
+            
+            .about-section { flex-direction: column; padding: 6rem 3rem; text-align: center; gap: 3rem; }
+            .about-image { width: 100%; max-width: 500px; height: auto; aspect-ratio: 4/5; box-shadow: none; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .brand-logo { font-size: 1.8rem; }
+            
+            .hamburger { display: block; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                z-index: 101;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.2rem; }
+
+            .hero { padding: 3rem 1.5rem 0; min-height: 85vh; gap: 2.5rem; }
+            .hero-title { font-size: 3.2rem; margin-bottom: 1rem; }
+            .hero-subtitle { font-size: 1.05rem; margin-bottom: 2rem; }
+            
+            .hero-image-stack { height: 450px; }
+            .img-back { width: 220px; height: 320px; right: 15%; top: 10px; }
+            .img-front { width: 250px; height: 350px; left: 10%; bottom: 20px; }
+
+            .trust-section { padding: 3rem 1.5rem; }
+            .trust-container { grid-template-columns: 1fr; gap: 2rem; }
+            .trust-item { padding: 1.5rem; }
+
+            .products-section { padding: 4rem 1.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .section-subtitle { margin-bottom: 3.5rem; }
+            .products-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 3rem; }
+
+            .about-section { padding: 4rem 1.5rem; }
+            .about-image { width: 100%; margin: 0 auto; height: auto; }
+            
+            footer { padding: 4rem 1.5rem 2rem; }
+            .footer-logo { font-size: 2.2rem; }
+            .social-links { margin-bottom: 3rem; gap: 1.5rem; }
+            
+            .sticky-wa { bottom: 1.5rem; right: 1.5rem; width: 60px; height: 60px; font-size: 2.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.6rem; }
+            .hero-image-stack { height: 350px; }
+            .img-back { width: 180px; height: 250px; right: 10%; top: 0; }
+            .img-front { width: 210px; height: 280px; left: 5%; bottom: 10px; }
+
+            .trust-item ion-icon { font-size: 2.5rem; }
+            .section-title { font-size: 2.2rem; }
+            
+            .product-img-wrapper { height: 300px; padding: 1rem; }
+            
+            .sticky-wa { width: 55px; height: 55px; font-size: 2rem; bottom: 1.5rem; right: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav>
+        <div class="brand-logo">Velora</div>
+        
+        <div class="hamburger" id="hamburger">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#products">Shop</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h1 class="hero-title">Illuminate Your Space</h1>
+            <p class="hero-subtitle">Hand-poured, luxury vegan soy candles designed to bring warmth and tranquility to your home.</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+        <!-- 3D Stack Image Effect Auto-floating -->
+        <div class="hero-image-stack reveal delay-1">
+            <img src="images/stack_back.png" alt="Stacked Candles" class="img-back">
+            <img src="images/front.png" alt="Premium Candle" class="img-front">
+        </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="trust-section">
+        <div class="trust-container">
+            <div class="trust-item reveal delay-1">
+                <ion-icon name="cash-outline"></ion-icon>
+                <h3>Cash on Delivery</h3>
+                <p>Pay conveniently when your order arrives at your doorstep.</p>
+            </div>
+            <div class="trust-item reveal delay-2">
+                <ion-icon name="flag-outline"></ion-icon>
+                <h3>Made in India</h3>
+                <p>Proudly handcrafted with love by local artisans.</p>
+            </div>
+            <div class="trust-item reveal delay-3">
+                <ion-icon name="rocket-outline"></ion-icon>
+                <h3>Fast Delivery</h3>
+                <p>Express shipping ensuring secure and timely arrival.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section" id="products">
+        <h2 class="section-title reveal">The Collection</h2>
+        <p class="section-subtitle reveal delay-1">Discover our signature scents carefully curated for you.</p>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Vanilla Bean Dream" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Vanilla Bean Dream</h3>
+                    <div class="product-price">₹899</div>
+                    <button class="btn btn-buy" data-name="Vanilla Bean Dream" data-price="899">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Lavender Haze" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Lavender Haze</h3>
+                    <div class="product-price">₹949</div>
+                    <button class="btn btn-buy" data-name="Lavender Haze" data-price="949">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Sandalwood Serenity" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Sandalwood Serenity</h3>
+                    <div class="product-price">₹1099</div>
+                    <button class="btn btn-buy" data-name="Sandalwood Serenity" data-price="1099">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Midnight Jasmine" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Midnight Jasmine</h3>
+                    <div class="product-price">₹899</div>
+                    <button class="btn btn-buy" data-name="Midnight Jasmine" data-price="899">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Citrus Bliss" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Citrus Bliss</h3>
+                    <div class="product-price">₹799</div>
+                    <button class="btn btn-buy" data-name="Citrus Bliss" data-price="799">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Rose Quartz" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Rose Quartz</h3>
+                    <div class="product-price">₹999</div>
+                    <button class="btn btn-buy" data-name="Rose Quartz" data-price="999">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Ocean Breeze" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Ocean Breeze</h3>
+                    <div class="product-price">₹849</div>
+                    <button class="btn btn-buy" data-name="Ocean Breeze" data-price="849">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Caramel Macchiato" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Caramel Macchiato</h3>
+                    <div class="product-price">₹1149</div>
+                    <button class="btn btn-buy" data-name="Caramel Macchiato" data-price="1149">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="Spiced Cinnamon" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Spiced Cinnamon</h3>
+                    <div class="product-price">₹899</div>
+                    <button class="btn btn-buy" data-name="Spiced Cinnamon" data-price="899">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card reveal">
+                <div class="product-img-wrapper">
+                    <img src="images/product.png" alt="White Tea & Sage" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">White Tea & Sage</h3>
+                    <div class="product-price">₹949</div>
+                    <button class="btn btn-buy" data-name="White Tea & Sage" data-price="949">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-section" id="about">
+        <!-- 3D Offset Image in About section -->
+        <img src="images/about.png" alt="Our Candles" class="about-image reveal">
+        <div class="about-container reveal delay-1">
+            <h2 class="section-title" style="text-align: left;">Our Story</h2>
+            <p class="about-text">
+                At Velora, we believe that a candle is more than just wax and a wick; it's a sensory experience, a moment of pause, and a touch of elegance for your sanctuary. Born in India out of a passion for artisan craftsmanship, our candles are hand-poured in small batches using premium natural soy wax, lead-free cotton wicks, and carefully blended fragrance oils. Let our glowing warmth and captivating aromas turn your everyday moments into exceptional memories.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="reveal">
+        <div class="footer-logo">Velora</div>
+        <div class="social-links">
+            <a href="https://wa.me/911234567890" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Velora Candles. All Rights Reserved. <br> Crafted with elegance in India.
+        </div>
+    </footer>
+
+    <!-- Sticky WhatsApp Button -->
+    <a href="https://wa.me/911234567890" class="sticky-wa reveal delay-3" target="_blank" aria-label="Chat on WhatsApp">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+    </a>
+
+    <!-- Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const WHATSAPP_NUMBER = '911234567890'; // User can replace with actual WhatsApp number
+
+            // Mobile Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const navOverlay = document.getElementById('navOverlay');
+            
+            const toggleMenu = () => {
+                navLinks.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                const icon = hamburger.querySelector('ion-icon');
+                if(navLinks.classList.contains('active')) {
+                    icon.setAttribute('name', 'close-outline');
+                } else {
+                    icon.setAttribute('name', 'menu-outline');
+                }
+            };
+
+            hamburger.addEventListener('click', toggleMenu);
+            navOverlay.addEventListener('click', toggleMenu);
+
+            // Handle Buy Now buttons
+            const buyButtons = document.querySelectorAll('.btn-buy');
+            
+            buyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productName = button.getAttribute('data-name');
+                    const productPrice = button.getAttribute('data-price');
+                    
+                    const message = `Hi Velora! I would like to buy the *${productName}* for *₹${productPrice}*. Please help me with the order process.`;
+                    const encodedMessage = encodeURIComponent(message);
+                    
+                    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+                    window.open(waUrl, '_blank');
+                });
+            });
+
+            // Smooth scrolling for nav links
+            document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Intersection Observer for Scroll Animations
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.1, // Trigger when 10% visible
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before it hits the bottom
+            };
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Stop observing once it's revealed
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => revealOnScroll.observe(el));
+        });
+    </script>
+</body>
+</html>
